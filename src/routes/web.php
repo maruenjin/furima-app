@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route; 
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use Laravel\Fortify\Http\Controllers\EmailVerificationNotificationController;
@@ -18,10 +20,17 @@ use Laravel\Fortify\Http\Controllers\NewPasswordController;
 */
 Route::get('/', [\App\Http\Controllers\ItemController::class, 'index']);
 
-// 公開
-Route::middleware('guest')->group(function () {
-    Route::get('/login', [LoginController::class, 'create'])->name('login');
-    Route::post('/login', [LoginController::class, 'store']);                  // ← FormRequestで検証→Fortify委譲
+
+   Route::middleware('guest')->group(function () {
+    Route::get('/login', [\App\Http\Controllers\Auth\LoginController::class, 'create'])
+        ->name('login');
+
+    
+    Route::post('/login', [\App\Http\Controllers\Auth\LoginController::class, 'store'])
+        ->name('login.attempt')
+        ->middleware('throttle:login');
+
+              
 
     Route::get('/register', [RegisteredUserController::class,'create'])->name('register');
     Route::post('/register', [RegisteredUserController::class,'store']);       // ← FormRequestで検証→CreateNewUser
@@ -34,7 +43,9 @@ Route::middleware('guest')->group(function () {
 });
 
 // 認証済
-Route::post('/logout', [LoginController::class, 'destroy'])->middleware('auth')->name('logout');
+Route::post('/logout', [\App\Http\Controllers\Auth\LoginController::class, 'destroy'])->middleware('auth')->name('logout');
+
+
 
 // メール認証
 Route::view('/email/verify', 'auth.verify-email')->middleware('auth')->name('verification.notice');
@@ -43,8 +54,9 @@ Route::get('/email/verify/{id}/{hash}', [VerifyEmailController::class, '__invoke
 Route::post('/email/verification-notification', [EmailVerificationNotificationController::class, 'store'])
     ->middleware(['auth','throttle:6,1'])->name('verification.send');
 
-    // 認証が必要な画面（例）
+    // 認証が必要な画面
 Route::middleware(['auth','verified', \App\Http\Middleware\EnsureProfileCompleted::class])->group(function () {
     Route::get('/mypage', [\App\Http\Controllers\MyPageController::class,'index']);
     Route::get('/mypage/profile', [\App\Http\Controllers\ProfileController::class,'edit'])->name('profile.edit');
+    Route::put('/mypage/profile', [\App\Http\Controllers\ProfileController::class,'update'])->name('profile.update');
 });
