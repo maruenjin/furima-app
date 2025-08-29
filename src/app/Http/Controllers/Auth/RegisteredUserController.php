@@ -2,41 +2,54 @@
 
 namespace App\Http\Controllers\Auth;
 
+use Laravel\Fortify\Contracts\CreatesNewUsers; 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\RegisterRequest;
-use App\Actions\Fortify\CreateNewUser;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\View\View;
+use Laravel\Fortify\Features;
+use App\Providers\RouteServiceProvider;
+
+
 
 class RegisteredUserController extends Controller
 {
-    // 会員登録フォーム表示
-    public function create(): View
+    public function create()
     {
         return view('auth.register');
     }
-
-    // 会員登録処理
-    public function store(RegisterRequest $request): RedirectResponse
+    
+    
+    public function store(\App\Http\Requests\RegisterRequest $request)
+    
     {
-        // FormRequestでバリデーション済み
-        $user = app(CreateNewUser::class)->create($request->validated());
+    $user = app(\Laravel\Fortify\Contracts\CreatesNewUsers::class)
+        ->create($request->validated());
 
-        // 認証メール送信イベント
-        event(new Registered($user));
+     
 
-        // ログイン状態にする
-        Auth::login($user);
+    event(new \Illuminate\Auth\Events\Registered($user)); // 認証メール送信
+     ;
 
-        // メール未認証なら認証誘導画面へ
-        if (! $user->hasVerifiedEmail()) {
-            return redirect()->route('verification.notice')->with('status', 'verification-link-sent');
-        }
+    \Auth:: guard('web')->login($user);                 // ログイン
+    $request->session()->regenerate();    // ★セッションID再生成（超重要）
 
-        // 認証済ならプロフィール編集へ
-        return redirect()->route('profile.edit');
+     \Log::info('REGISTER REDIRECT to verification.notice; uid='.$user->id);
+
+
+    return redirect()->route('verification.notice'); // /email/verify へ
     }
-}
+
+        
+        
+   
+
+    }
+
+
+
+
+
+
+
 

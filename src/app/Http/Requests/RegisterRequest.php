@@ -16,10 +16,10 @@ class RegisterRequest extends FormRequest
             'name' => ['required','string','max:255'],
             'email' => ['required','string','email','max:255','unique:users,email'],
             'password' => ['required','confirmed', Password::min(8)],
-             'password_confirmation' => ['required'], // 明示（文言要件のため）
+             'password_confirmation' => ['required'], 
         ];
     }
-    public function attributes(): array {
+    public function messages(): array {
         return [
             // 未入力
             'name.required'     => 'お名前を入力してください',
