@@ -2,8 +2,15 @@
 <!doctype html><html lang="ja">
 <head>
   <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
   <title>@yield('title','フリマ')</title>
   @vite(['resources/css/app.css','resources/js/app.js']) {{-- Vite利用時 --}}
+  <style>
+  .form-error{ color:#b00020; font-size:0.875rem; margin-top:4px; }
+  .flash-success{ color:#2e7d32; }
+</style>
+
 </head>
 <body class="min-h-screen bg-gray-50">
   <header class="bg-black text-white">
