@@ -24,8 +24,8 @@ class ProfileUpdateRequest extends FormRequest
     public function rules()
     {
         return [
-             'name'       => ['required','string','max:255'],
-            'zip_code'   => ['nullable','regex:/^\d{7}$/'],   
+             'name'       => ['required','string','max:20'],
+            'postal_code'   =>  ['nullable','regex:/^\d{3}-?\d{4}$/'],
             'address'    => ['required','string','max:255'],
             'building'   => ['nullable','string','max:255'],
             'avatar'     => ['nullable','image','mimes:jpeg,png','max:2048'], 
@@ -35,12 +35,17 @@ class ProfileUpdateRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'name.required'     => 'お名前を入力してください',
-            'address.required'  => '住所を入力してください',
-            'zip_code.regex'    => '郵便番号はハイフンなしの7桁で入力してください',
-            'avatar.image'      => 'プロフィール画像は画像ファイルを選択してください',
-            'avatar.mimes'      => 'プロフィール画像はjpegまたはpng形式でアップロードしてください',
-            'avatar.max'        => 'プロフィール画像は2MB以下でアップロードしてください',
+            'name.required'        => 'お名前を入力してください',
+            'name.max'             => 'ユーザー名は20文字以内で入力してください',
+
+            'postal_code.regex'    => '郵便番号は「123-4567」または「1234567」で入力してください',
+
+            'address.required'     => '住所を入力してください', 
+
+            'avatar.image'         => 'プロフィール画像は画像ファイルを選択してください',
+            'avatar.mimes'         => 'プロフィール画像はjpeg、jpg、png形式でアップロードしてください',
+            'avatar.max'           => 'プロフィール画像は2MB以下でアップロードしてください',
+           
         ];
     }
 }

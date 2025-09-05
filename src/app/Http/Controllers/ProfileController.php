@@ -2,41 +2,39 @@
 
 namespace App\Http\Controllers;
 
-
 use Illuminate\Http\Request;
 use App\Http\Requests\ProfileUpdateRequest;
 use Illuminate\Support\Facades\Storage;
 
 class ProfileController extends Controller
 {
-     // プロフィール編集画面の表示
-    public function edit()
+    // プロフィール編集画面の表示
+    public function edit(Request $request)
     {
-       $user = auth()->user();
-        return view('profile.edit', compact('user'));
+        $user = $request->user(); 
+        return view('profile.profile', compact('user'));
     }
 
     // プロフィール更新処理
-    public function update(ProfileUpdateRequest  $request)
+    public function update(ProfileUpdateRequest $request)
     {
-        $user = auth()->user();
+        $user = $request->user();
 
-         // 画像アップロード
+        // 画像アップロード
         $avatarPath = $user->avatar_path;
         if ($request->hasFile('avatar')) {
-            $path = $request->file('avatar')->store('avatars', 'public'); 
-            $avatarPath = $path;
+            
+            $avatarPath = $request->file('avatar')->store('avatars', 'public'); 
         }
 
-        $user->update([
-            'name'       => $request->name,
-            'zip_code'   => $request->zip_code,
-            'address'    => $request->address,
-            'building'   => $request->building,
-            'avatar_path'=> $avatarPath,
-        ]);
+       // バリデーション済みデータで更新
+        $data = $request->validated();
+        $data['avatar_path']       = $avatarPath;
+        $data['profile_completed'] = true;
 
-        return redirect()->route('profile.edit')->with('status', 'プロフィールを更新しました。');
+        $user->update($data);
+
+        return redirect()->route('items.index')->with('status', 'プロフィールを更新しました。');
     }
- }
+}
 

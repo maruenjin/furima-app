@@ -1,36 +1,59 @@
-
-<!doctype html><html lang="ja">
+<!doctype html>
+<html lang="ja">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-
   <title>@yield('title','フリマ')</title>
-  @vite(['resources/css/app.css','resources/js/app.js']) {{-- Vite利用時 --}}
-  <style>
-  .form-error{ color:#b00020; font-size:0.875rem; margin-top:4px; }
-  .flash-success{ color:#2e7d32; }
-</style>
-
+  <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+  @stack('styles')
 </head>
-<body class="min-h-screen bg-gray-50">
-  <header class="bg-black text-white">
-    <div class="mx-auto max-w-5xl flex items-center justify-between p-4">
-      <a href="{{ url('/') }}" class="font-bold">COACHTECH</a>
-      <nav class="flex gap-4">
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      {{-- 左：ロゴ --}}
+      <a href="{{ url('/') }}" class="brand">
+        <img src="{{ asset('images/logo.svg') }}" alt="COACHTECH" class="brand-logo">
+      </a>
+
+      {{-- 中央：検索（一覧 / に q を投げる） --}}
+      <form action="{{ url('/') }}" method="GET" class="search-form" role="search">
+        <input type="text" name="q" placeholder="なにをお探しですか？" value="{{ request('q') }}">
+      </form>
+
+      {{-- 右：ナビ（認証状態で出し分け） --}}
+      <nav class="nav-links">
         @auth
-          <a href="{{ url('/sell') }}">出品</a>
-          <a href="{{ url('/mypage') }}">マイページ</a>
-          <form method="POST" action="{{ route('logout') }}">
-            @csrf <button>ログアウト</button>
+          {{-- 左：ログアウト --}}
+          <form class="logout-inline" method="POST" action="{{ route('logout') }}">
+            @csrf
+            <button type="submit">ログアウト</button>
           </form>
+
+          
+
+          {{-- 中：マイページ --}}
+          <a href="{{ route('mypage.index') }}">マイページ</a>
+
+          {{-- 右：出品（ルートがあるときだけ） --}}
+          @if (Route::has('products.create'))
+            <a class="btn-white" href="{{ route('products.create') }}">出品</a>
+          @endif
         @else
           <a href="{{ route('login') }}">ログイン</a>
-          <a href="{{ route('register') }}">会員登録</a>
+          @if (Route::has('register'))
+            <a href="{{ route('register') }}">会員登録</a>
+          @endif
         @endauth
       </nav>
     </div>
   </header>
-  <main class="mx-auto max-w-5xl p-6">@yield('content')</main>
-  <footer class="text-center text-sm text-gray-500 py-8">&copy; COACHTECH</footer>
-</body></html>
+
+  <main class="container">@yield('content')</main>
+</body>
+</html>
+
+
+
+
+
 
