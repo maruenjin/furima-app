@@ -6,12 +6,10 @@
 @endpush
 
 @section('content')
-<div class="register-container"><!-- 箱はCSSで透明にしてるので流用OK -->
+<div class="register-container">
   <h1 class="auth-title">ログイン</h1>
 
-  @if ($errors->any())
-    <div class="form-error global-error">{{ $errors->first() }}</div>
-  @endif
+ 
 
   <form method="POST" action="{{ route('login') }}" class="auth-form" novalidate>
     @csrf

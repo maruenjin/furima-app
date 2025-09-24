@@ -91,7 +91,7 @@
 
 @push('styles')
 <style>
-/* ざっくりボタン色（既存の .btn-primary-red があれば不要） */
+
 .btn-primary-red{background:#ff6b6b;color:#fff;border:none;border-radius:6px;padding:10px 16px;cursor:pointer;font-weight:600}
 .btn-primary-red:hover{opacity:.92}
 </style>

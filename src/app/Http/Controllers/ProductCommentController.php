@@ -2,21 +2,24 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Product;
-use App\Http\Requests\StoreProductCommentRequest;
-use Illuminate\Support\Facades\Auth;
-
+use App\Models\ProductComment;
+use App\Http\Requests\StoreProductCommentRequest; 
+use Illuminate\Http\Request;
 
 class ProductCommentController extends Controller
 {
-    public function store(Product $product, StoreProductCommentRequest $request)
+    public function store(StoreProductCommentRequest $request, Product $product) 
     {
+        $data = $request->validated(); 
+
+       
         $product->comments()->create([
-            'user_id' => Auth::id(),
-            'body'    => $request->input('body'),
+            'user_id' => auth()->id(),   
+            'body'    => $data['body'],
         ]);
 
-        return back(); 
+        return redirect()->route('products.show', $product);
     }
 }
+

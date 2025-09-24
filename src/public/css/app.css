@@ -1,0 +1,499 @@
+/* レイアウト共通 */
+body {
+    background: #fff;
+    margin: 0;
+}
+
+.container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 24px 16px;
+}
+
+.site-footer {
+    text-align: center;
+    font-size: 12px;
+    color: #777;
+    padding: 32px 0;
+}
+
+/* ヘッダー */
+.auth-header {
+    background: #000;
+    color: #fff;
+}
+
+.header-inner {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 12px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    /* 左寄せ */
+}
+
+.brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    color: #fff;
+}
+
+.brand-logo {
+    display: block;
+    height: 20px;
+}
+
+.brand-text {
+    font-weight: 800;
+    letter-spacing: .02em;
+}
+
+/* 通常ヘッダー（検索＋ナビ） */
+.site-header {
+    background: #000;
+    color: #fff;
+}
+
+.site-header .header-inner {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 12px 16px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+/* 検索フォーム */
+.search-form {
+    flex: 1;
+    margin: 0 16px;
+}
+
+.search-form input {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background: #fff;
+    color: #111;
+    box-sizing: border-box;
+}
+
+/* 右側ナビ */
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.nav-links a {
+    color: #fff;
+    text-decoration: none;
+}
+
+.logout-inline {
+    display: inline;
+}
+
+.logout-inline button {
+    background: none;
+    color: #fff;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    font: inherit;
+}
+
+.logout-inline button:hover {
+    text-decoration: underline;
+}
+
+/* 既存のロゴサイズを通常ヘッダーでも流用 */
+.site-header .brand-logo {
+    height: 20px;
+    display: block;
+}
+
+/* 白い箱ボタン（出品用） */
+.btn-white {
+    display: inline-block;
+    padding: 6px 12px;
+    background: #fff;
+    color: #000;
+    border: 1px solid #fff;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.btn-white:hover {
+    opacity: 0.9;
+}
+
+/* まず全リンクをリセット（白い箱を外す） */
+.site-header .nav-links a {
+    background: transparent;
+    border: none;
+    padding: 0;
+    color: #fff;
+    text-decoration: none;
+}
+
+/* 出品だけ白い箱 */
+.site-header .nav-links a.btn-white {
+    display: inline-block;
+    padding: 6px 12px;
+    background: #fff;
+    color: #000;
+    border: 1px solid #fff;
+    border-radius: 4px;
+    font-weight: 600;
+}
+
+/* ログアウトは文字リンク風（ボタンのデフォルトを消す） */
+.site-header .logout-inline button {
+    background: transparent;
+    border: none;
+    padding: 0;
+    color: #fff;
+    cursor: pointer;
+    font: inherit;
+}
+
+.site-header .logout-inline button:hover {
+    text-decoration: underline;
+}
+
+.product-grid {
+    max-width: 1080px;
+    margin: 24px auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 16px;
+}
+
+.product-card {
+    display: block;
+    text-decoration: none;
+    color: #111;
+}
+
+.product-thumb {
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+    background: #f7f7f7;
+}
+
+.product-thumb img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    display: block;
+}
+
+.badge-sold {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    background: #e53935;
+    color: #fff;
+    font-size: 12px;
+    padding: 2px 6px;
+    border-radius: 6px;
+}
+
+.product-meta .brand {
+    color: #666;
+    font-size: 12px;
+    margin-top: 6px;
+}
+
+.product-meta .name {
+    font-weight: 700;
+}
+
+.product-meta .price {
+    color: #111;
+}
+
+.pagination {
+    max-width: 1080px;
+    margin: 16px auto;
+}
+
+/*商品詳細　赤ボタン*/
+.btn-primary-red {
+    display: inline-block;
+    background: #ff6b6b;
+    color: #fff;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 6px;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.btn-primary-red[disabled] {
+    opacity: .5;
+    cursor: not-allowed;
+}
+
+/*いいね*/
+.btn-like {
+    display: inline-block;
+    background: #fff;
+    color: #333;
+    border: 1px solid #ddd;
+    padding: 6px 10px;
+    border-radius: 6px;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.btn-like.is-active {
+    background: #ff6b6b;
+    color: #fff;
+    border-color: #ff6b6b;
+}
+
+.btn-like:hover {
+    opacity: .9;
+}
+
+/*マイリスト*/
+.tabs a {
+    padding: 6px 10px;
+    border-radius: 6px;
+    text-decoration: none;
+    border: 1px solid #ddd;
+    color: #333;
+}
+
+.tabs a.is-active {
+    background: #000;
+    color: #fff;
+    border-color: #000;
+}
+
+
+.site-header {
+    position: sticky;
+    top: 0;
+    z-index: 2000;
+}
+
+
+main {
+    position: relative;
+    z-index: 1;
+}
+
+/* ===== MyPage ===== */
+.mypage-head {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin: 16px 0 8px;
+}
+
+.mypage-head__name {
+    font-weight: 700;
+}
+
+.btn-outline {
+    display: inline-block;
+    padding: 6px 12px;
+    background: #fff;
+    color: #f42944;
+    border: 1px solid #f42944;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.tabs--mypage {
+    display: flex;
+    gap: 12px;
+    margin: 12px 0 16px;
+}
+
+.tab-panel {
+    display: none;
+}
+
+.tab-panel.is-active {
+    display: block;
+}
+
+/* MyPage タブ：文字のみ、選択中は赤 */
+.tabs--mypage {
+    display: flex;
+    gap: 16px;
+    margin: 12px 0 16px;
+}
+
+
+.tabs--mypage a {
+    padding: 0;
+    border: none;
+    border-radius: 0;
+    background: transparent;
+    color: #333;
+    text-decoration: none;
+    font-weight: 700;
+}
+
+.tabs--mypage a:hover {
+    opacity: .8;
+}
+
+/* 選択中を赤に */
+.tabs--mypage a.is-active {
+    color: #f42944;
+    background: transparent;
+    border: none;
+}
+
+/* ---- avatar for MyPage ---- */
+.mypage-head .avatar {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: #eee;
+    overflow: hidden;
+    flex: 0 0 64px;
+}
+
+.mypage-head .avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.mypage-head {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin: 16px 0 8px;
+}
+
+.mypage-head__name {
+    font-weight: 700;
+}
+
+/* マイページ見出し行 */
+.mypage-head {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+
+.mypage-head>.btn-outline {
+    margin-left: auto;
+    
+}
+
+.tab-panel--buy .badge-sold {
+    display: none !important;
+}
+
+/* ---- レイアウトの土台 ---- */
+:root {
+    /* 画面幅が変わっても器は綺麗に縮む */
+    --container: clamp(960px, 92vw, 1160px);
+    --container-wide: clamp(1040px, 94vw, 1280px);
+}
+
+.container {
+    width: min(var(--container), 100%);
+    margin: 0 auto;
+    padding: 0 16px;
+}
+
+.container--wide {
+    width: min(var(--container-wide), 100%);
+    margin: 0 auto;
+    padding: 0 16px;
+}
+
+
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* （商品一覧系） */
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+}
+
+.product-card {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+}
+
+.product-thumb {
+    aspect-ratio: 4/3;
+    overflow: hidden;
+    border: 1px solid #000;
+    border-radius: 0;
+}
+
+.product-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+
+.header-inner {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.search-form {
+    flex: 1;
+    min-width: 0;
+}
+
+
+@media (max-width:1200px) {
+    .product-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+
+@media (max-width:850px) and (min-width:768px) {
+    .product-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .header-inner {
+        gap: 8px;
+    }
+
+    .search-form input {
+        min-width: 0;
+    }
+}
+
+
+@media (max-width:767px) {
+    .product-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+

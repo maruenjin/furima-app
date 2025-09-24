@@ -1,0 +1,65 @@
+/* ページ */
+.address-page {
+    max-width: 720px;
+    margin: 32px auto 0;
+    padding: 0 16px;
+}
+
+.address-title {
+    text-align: center;
+    font-weight: 700;
+    font-size: 20px;
+    margin: 0 0 24px;
+}
+
+/* フォーム本体（Figma: 幅344px想定） */
+.address-form {
+    width: 344px;
+    margin: 0 auto;
+    /* 中央寄せ */
+}
+
+/* ラベル・グループ */
+.form-group {
+    margin: 0 0 16px;
+}
+
+.form-label {
+    display: block;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+/* 入力（黒フチ・角丸なし・高さ36px） */
+.address-form .input {
+    width: 100%;
+    height: 36px;
+    box-sizing: border-box;
+    padding: 8px 12px;
+    border: 1px solid #000;
+    border-radius: 0;
+    background: #fff;
+    appearance: none;
+}
+
+.address-form .input:focus {
+    outline: none;
+    border-color: #000;
+}
+
+/* 更新ボタン（中央・横いっぱい） */
+.address-submit {
+    display: block;
+    width: 100%;
+    padding: 10px 16px;
+    font-weight: 700;
+    border-radius: 0;
+    /* 角丸なし */
+}
+
+/* 既存のグローバルと競合しない微調整 */
+.form-error {
+    color: #dc2626;
+    font-size: 13px;
+    margin-top: 6px;
+}

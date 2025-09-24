@@ -144,7 +144,7 @@ return [
     |
     */
     'routes' => false,
-    'home'   => '/', 
+    'home'   => '/after-login', 
 
     'features' => [
         

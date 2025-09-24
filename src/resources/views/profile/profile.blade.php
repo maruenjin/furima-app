@@ -11,7 +11,7 @@
 
   
 
-  {{-- アバター＋アップロード --}}
+ 
   <div class="avatar-block">
     @php $src = $user->avatar_path ? asset('storage/'.$user->avatar_path) : null; @endphp
     <div class="avatar {{ $src ? '' : 'is-empty' }}">
@@ -26,12 +26,10 @@
     @error('avatar') <div class="form-error">{{ $message }}</div> @enderror
   </div>
 
-  {{-- ★ enctype を必ず付ける！ --}}
+  
   <form id="profile-form" method="POST" action="{{ route('profile.update') }}" class="auth-form" enctype="multipart/form-data">
     @csrf
-    {{-- もしルートを PUT にしているなら↓を有効化
-    @method('PUT')
-    --}}
+    
 
     <div class="form-group">
       <label class="form-label" for="name">ユーザー名</label>

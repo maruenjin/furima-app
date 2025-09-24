@@ -1,13 +1,50 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Product; 
+use App\Models\Order;                          
+use Illuminate\Pagination\LengthAwarePaginator; 
+use Illuminate\Support\Facades\Schema;
 
 class MyPageController extends Controller
 {
-    public function index()
+    public function index(\Illuminate\Http\Request $request)
+{
+    // とりあえず「購入した商品一覧」へ飛ばす
+    return redirect()->route('mypage.purchases');
+}
+
+   public function purchases(Request $request)
     {
-        return "mypage works"; // 仮の出力
-    } 
+         $user = $request->user();
+
+          // どちらのタブを表示するか
+        $tab = $request->query('tab');
+        $tab = in_array($tab, ['sell','buy'], true) ? $tab : 'sell';
+
+        // どちらのタブを表示するか
+    $tab = $request->query('tab');
+    $tab = in_array($tab, ['sell','buy'], true) ? $tab : 'sell';
+
+    // --- 購入した商品 ---
+    $buyerColumn = \Schema::hasColumn('orders','buyer_id') ? 'buyer_id' : 'user_id';
+    $orders = \App\Models\Order::with('product')
+        ->where($buyerColumn, $user->id)
+        ->latest('id')
+        ->paginate(12, ['*'], 'buys_page');
+
+    $productsBought = $orders->getCollection()->pluck('product')->filter()->values();
+    $items = new \Illuminate\Pagination\LengthAwarePaginator(
+        $productsBought, $orders->total(), $orders->perPage(), $orders->currentPage(),
+        ['path'=>$request->url(),'query'=>$request->query()]
+    );
+
+    // --- 出品した商品 ---
+    $myProducts = \App\Models\Product::where('user_id', $user->id)
+        ->latest('id')
+        ->paginate(12, ['*'], 'sells_page');
+
+    return view('mypage.purchases', compact('user','items','myProducts','tab'));
+    }
 }

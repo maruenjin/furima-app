@@ -1,0 +1,357 @@
+/* コンテナ・タイトル */
+.register-container {
+    max-width: 520px;
+    margin: 48px auto 0;
+    padding: 0;
+    background: transparent;
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+}
+
+.register-title {
+    font-size: 24px;
+    font-weight: 700;
+    margin: 0 0 24px;
+    text-align: center;
+}
+
+/* 入力・ラベル */
+.form-group {
+    margin: 0 0 16px;
+}
+
+.form-label {
+    display: block;
+    font-weight: 600;
+    margin: 0 0 8px;
+}
+
+.auth-form {
+    max-width: 560px;
+    margin: 32;
+}
+
+/* 入力ボックス：角丸なし＋黒フチ（ここが主役） */
+.auth-form .input {
+    width: 100%;
+    height: 36px;
+    /* ← 細く */
+    box-sizing: border-box;
+    padding: 8px 12px;
+    /* ← 高さを下げた分だけ控えめに */
+    border: 1px solid #000;
+    /* 黒いふちどり */
+    border-radius: 0;
+    /* 角丸なし */
+    background: #fff;
+    appearance: none;
+    box-shadow: none;
+    font-size: 16px;
+    /* iOS拡大防止 */
+}
+
+.auth-form .input:focus {
+    outline: none;
+    border-color: #000;
+    /* フォーカス時も黒のまま */
+    box-shadow: none;
+}
+
+.auth-form .form-group:last-of-type {
+    margin-bottom: 32px;
+    
+}
+
+/* （汎用 .input は残すなら高さ指定を消す or 丸ごと削除） */
+.input {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 8px 12px;
+    border: 1px solid #000;
+    border-radius: 0;
+    background: #fff;
+}
+
+.input:focus {
+    outline: none;
+    border-color: #000;
+}
+
+/* ボタン */
+.btn-primary {
+    width: 100%;
+    padding: 12px 16px;
+    border: none;
+    font-weight: 700;
+    cursor: pointer;
+    background: #111;
+    color: #fff;
+}
+
+.btn-primary:hover {
+    opacity: .92;
+}
+
+.btn-auth {
+    background: #f42944;
+}
+
+.btn-auth {
+    margin-top: 8px;
+    
+}
+
+/* リンク（下線なし） */
+.auth-switch {
+    margin-top: 16px;
+    text-align: center;
+    font-size: 14px;
+}
+
+.auth-switch .link {
+    color: #4b26ee;
+    text-decoration: none;
+}
+
+.auth-switch .link:hover,
+.auth-switch .link:focus {
+    opacity: .85;
+    
+}
+
+.auth-switch .link:visited {
+    color: #4e29f4;
+    /* 既読で紫にならないよう */
+}
+
+.link {
+    text-decoration: none;
+    color: inherit;
+}
+
+.link:hover,
+.link:focus,
+.link:active {
+    text-decoration: none;
+}
+
+/* メッセージ */
+.form-error {
+    color: #dc2626;
+    font-size: 13px;
+    margin-top: 6px;
+}
+
+.flash-success {
+    color: #2e7d32;
+}
+
+.global-error {
+    margin-bottom: 12px;
+}
+
+/* Chrome/Edge オートフィル色を白で上書き */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus {
+    -webkit-box-shadow: 0 0 0 1000px #fff inset !important;
+    box-shadow: 0 0 0 1000px #fff inset !important;
+    -webkit-text-fill-color: #111 !important;
+    caret-color: #111;
+}
+
+/* 確認用パスワード → 登録ボタン */
+.auth-form button[type="submit"] {
+    margin-top: 32px;
+
+    display: block;
+    
+}
+
+/* 確認用パスワード → 登録ボタンの間を広げる */
+.auth-form .form-group:last-of-type {
+    margin-bottom: 0;
+    padding-bottom: 32px;
+}
+
+
+.auth-form button[type="submit"] {
+    margin-top: 0 !important;
+    display: block;
+}
+
+/* タイトルを共通クラスで中央寄せ（登録/ログイン兼用） */
+.auth-title {
+    font-size: 24px;
+    font-weight: 700;
+    text-align: center;
+    margin: 0 0 24px;
+}
+
+/* 入力は登録と同じ */
+.auth-form .input {
+    width: 100%;
+    height: 36px;
+    box-sizing: border-box;
+    padding: 8px 12px;
+    border: 1px solid #000;
+    border-radius: 0;
+    background: #fff;
+    appearance: none;
+    box-shadow: none;
+    font-size: 16px;
+    
+}
+
+.auth-form .input:focus {
+    outline: none;
+    border-color: #000;
+}
+
+/* パスワード行→ボタンの間隔をしっかり空ける */
+.auth-form .form-group:last-of-type {
+    margin-bottom: 0;
+    padding-bottom: 28px;
+}
+
+.auth-form button[type="submit"] {
+    margin-top: 0;
+    display: block;
+}
+
+/* ログインリンクの色 */
+.auth-switch .link {
+    color: #f42944;
+    text-decoration: none;
+}
+
+.auth-switch .link:hover {
+    opacity: .85;
+}
+
+/*  verify: メール認証誘導画面 */
+.verify-wrap {
+    max-width: 520px;
+    margin: 72px auto 0;
+    text-align: center;
+}
+
+.verify-lead {
+    margin: 12px 0 24px;
+    line-height: 1.8;
+    color: #111;
+}
+
+/* グレーのボタン（認証はこちらから） */
+.btn-secondary {
+    display: inline-block;
+    min-width: 240px;
+    padding: 10px 16px;
+    border: 1px solid #cfcfcf;
+    background: #efefef;
+    color: #111;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: 600;
+}
+
+.btn-secondary:hover {
+    opacity: .9;
+}
+
+/* 再送リンク */
+.verify-resend {
+    margin-top: 16px;
+}
+
+.link-button {
+    background: none;
+    border: none;
+    padding: 0;
+    color: #5c29f4;
+    
+    cursor: pointer;
+    font: inherit;
+    text-decoration: none;
+}
+
+.link-button:hover {
+    opacity: .85;
+}
+
+/* 再送メッセージ */
+.flash-info {
+    background: #eef;
+    color: #114;
+    padding: 12px 16px;
+    margin: 12px auto 0;
+    display: inline-block;
+    border-radius: 8px;
+    
+}
+
+/* メール認証の説明を太く */
+.verify-lead {
+    font-weight: 800;
+    
+}
+
+/* ===== Profile  ===== */
+.profile-wrap {
+    max-width: 520px;
+    margin: 48px auto 0;
+    text-align: left;
+}
+
+/* アバター */
+.avatar-block {
+    text-align: left;
+    margin: 8px 0 12px;
+}
+
+.avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: #eee;
+    overflow: hidden;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.avatar.is-empty::after {
+    content: "";
+}
+
+.avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* 「画像を選択する」 pill ボタン（ */
+.avatar-upload {
+    display: inline-block;
+    margin-left: 12px;
+    padding: 6px 10px;
+    font-size: 12px;
+    border-radius: 999px;
+    cursor: pointer;
+    background: #f42944;
+    color: #fff;
+    border: 1px solid #f42944;
+}
+
+.avatar-upload:hover {
+    opacity: .9;
+}
+
+/* 入力の見た目は登録 */
+.auth-form .input {
+    height: 36px;
+    padding: 8px 12px;
+    border: 1px solid #000;
+    border-radius: 0;
+}

@@ -12,9 +12,7 @@
   <h2 class="register-title">会員登録</h2>
 
   
-  @if ($errors->any())
-    <div class="form-error global-error">{{ $errors->first() }}</div>
-  @endif
+ 
 
   @if (session('status'))
     <div class="flash-success">{{ session('status') }}</div>

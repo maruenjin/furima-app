@@ -1,9 +1,14 @@
 @extends('layouts.app')
 @section('title','商品一覧')
 
-@section('content')
+@section('css')
+<link rel="stylesheet" href="{{ asset('css/products.css') }}">
+@endsection
 
-<div class="tabs" style="display:flex;gap:12px;margin:12px 0;">
+@section('content')
+ 
+
+<div class="tabs tabs--row">
   <a href="{{ route('products.index', ['q' => request('q')]) }}"
      class="{{ request('tab') === 'mylist' ? '' : 'is-active' }}">おすすめ</a>
 
@@ -16,11 +21,10 @@
     <a class="product-card" href="{{ route('products.show', $product) }}">
       <div class="product-thumb">
         @php
-          $src = $product->image_path ? asset('storage/'.$product->image_path)
-                                      : asset('images/noimage.png');
+          $src = $product->image_path ? asset('storage/'.$product->image_path) : asset('images/noimage.png');
         @endphp
         <img src="{{ $src }}" alt="{{ $product->name }}">
-        @if ($product->is_sold ?? false)
+        @if (!is_null($product->buyer_id))
           <span class="badge-sold">Sold</span>
         @endif
       </div>
@@ -35,4 +39,5 @@
 
 <div class="pagination">{{ $products->links() }}</div>
 @endsection
+
 

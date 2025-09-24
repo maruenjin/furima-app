@@ -16,24 +16,29 @@ class ProductController extends Controller
     $q   = trim((string) $request->q);
     $tab = $request->tab === 'mylist' ? 'mylist' : 'all';
 
-    $builder = Product::query()->with('seller')->latest();
+    
+    $builder = Product::query()->with('user')->latest();
 
-    // 検索（商品名：部分一致）
+    
     if ($q !== '') {
         $builder->where('name', 'like', "%{$q}%");
     }
 
     if ($tab === 'mylist') {
-        // 未認証は空表示
+        
         if (!auth()->check()) {
-            return view('items.index', [
-                'products' => collect(), 'tab' => $tab, 'q' => $q,
-            ]);
+            $products = Product::query()
+                ->whereRaw('1=0') 
+                ->paginate(12)
+                ->withQueryString();
+
+            return view('items.index', compact('products', 'tab', 'q'));
         }
-        // いいねした商品だけ
-        $builder->whereHas('likes', fn ($qr) => $qr->where('user_id', auth()->id()));
+
+        
+        $builder->whereHas('likes', fn ($qr) => $qr->whereKey(auth()->id()));
     } else {
-        // 自分が出品した商品は除外
+       
         if (auth()->check()) {
             $builder->where('user_id', '!=', auth()->id());
         }
@@ -43,9 +48,10 @@ class ProductController extends Controller
     return view('items.index', compact('products','tab','q'));
 }
 
+
     public function show(\App\Models\Product $product)
     {
-      // 件数と「自分がいいね済みか」を渡す
+      
         $product->load(['comments.user','likes','seller']);
         $likesCount = $product->likes()->count();
         $commentsCount = $product->comments->count();
@@ -55,24 +61,18 @@ class ProductController extends Controller
     }
 
 
-    public function toggleLike(Product $product, Request $request)
-    {
-        $userId = Auth::id();
+    public function toggleLike(Product $product)
+{
+    $userId = auth()->id();
+    if (!$userId) {
+        return redirect()->route('login');
+    }
 
-        $existing = ProductLike::where('user_id',$userId)
-                    ->where('product_id',$product->id)
-                    ->first();
+    
+    $product->likes()->toggle([$userId]);
 
-        if ($existing) {
-            $existing->delete();          // いいね解除
-        } else {
-            $product->likes()->create([
-                'user_id' => $userId,     // いいね追加
-            ]);
-        }
-
-        
-        return back();
+    
+    return redirect()->route('products.show', $product);
     }
 
     public function create()
@@ -85,30 +85,30 @@ class ProductController extends Controller
     }
 
 
-    public function store(StoreProductRequest $request)
-    {
-        $path = null;
-        if ($request->hasFile('image')) {
-        
-        $path = $request->file('image')->store('images', 'public');
-       }
+   public function store(\App\Http\Requests\StoreProductRequest $request)
+{
+   
+    $data = $request->validated();
 
-    
-    
-       
-       $product = \App\Models\Product::create([
-        'user_id'     => auth()->id(),
-        'name'        => $request->name,
-        'brand'       => $request->brand,
-        'price'       => $request->price,
-        'description' => $request->description,
-        'condition'   => $request->condition,
-        'image_path'  => $path,                 
-        'categories'  => $request->categories,  
-    ]);
+   
+    $data['user_id'] = auth()->id();
 
-    return redirect()->route('products.show', $product)->with('status','商品を出品しました。');
+   
+    $cats = $data['categories'] ?? [];
+    if (!is_array($cats)) {
+        $cats = array_filter(array_map('trim', explode(',', (string) $cats)));
+    }
+    $data['categories'] = $cats; 
+    if ($request->hasFile('image')) {
+        $data['image_path'] = $request->file('image')->store('products', 'public');
+    }
+    unset($data['image']); 
+    $product = \App\Models\Product::create($data);
+
+    return redirect()->route('products.index')->with('status', '出品しました。');
 }
+
+
 
 }
 

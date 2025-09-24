@@ -1,0 +1,197 @@
+/* 購入一覧 */
+.mypage-purchases {
+    max-width: 1080px;
+    margin: 0 auto;
+}
+
+.mypage-purchases .mypage-title {
+    margin: 12px 0 16px;
+    font-size: 28px;
+    font-weight: 800;
+}
+
+
+.mypage-purchases .product-grid {
+    display: grid !important;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 16px;
+    margin: 16px 0 24px;
+}
+
+/* カード */
+.mypage-purchases .product-card {
+    display: block;
+    text-decoration: none;
+    color: #111;
+}
+
+
+.mypage-purchases .product-thumb {
+    position: relative !important;
+    border-radius: 8px;
+    overflow: hidden;
+    background: #f7f7f7;
+    border: 1px solid #eee;
+}
+
+.mypage-purchases .product-thumb img {
+    display: block;
+    width: 100%;
+    height: 160px !important;
+    object-fit: cover !important;
+}
+
+/* SOLD  */
+.mypage-purchases .badge-sold {
+    position: absolute !important;
+    top: 8px;
+    left: 8px;
+    background: #e53935;
+    color: #fff;
+    font-size: 12px;
+    padding: 2px 6px;
+    border-radius: 6px;
+}
+
+/* テキスト部 */
+.mypage-purchases .product-meta {
+    padding: 6px 2px;
+}
+
+.mypage-purchases .product-meta .brand {
+    color: #666;
+    font-size: 12px;
+}
+
+.mypage-purchases .product-meta .name {
+    font-weight: 700;
+    font-size: 14px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.mypage-purchases .product-meta .price {
+    color: #111;
+}
+
+/* ===== Profile header ===== */
+.mypage-purchases .profile-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 12px 0 16px;
+    border-bottom: 1px solid #eee;
+    margin-bottom: 12px;
+}
+
+.mypage-purchases .avatar {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    background: #eee;
+    overflow: hidden;
+    flex: 0 0 auto;
+    border: 1px solid #ddd;
+}
+
+.mypage-purchases .avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.mypage-purchases .profile-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.mypage-purchases .profile-name {
+    font-size: 18px;
+    font-weight: 800;
+}
+
+.mypage-purchases .btn-outline {
+    display: inline-block;
+    padding: 6px 10px;
+    border: 1px solid #f42944;
+    color: #f42944;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 700;
+}
+
+.mypage-purchases .btn-outline:hover {
+    opacity: .9;
+}
+
+/*  Sections  */
+.mypage-purchases .section-title {
+    font-size: 18px;
+    font-weight: 800;
+}
+
+.mypage-purchases .section-title.with-margin {
+    margin: 16px 0 8px;
+}
+
+/* ヘッダー行（アイコン・名前・編集ボタン） */
+.mypage-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 12px;
+}
+
+.mypage-head .avatar {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    overflow: hidden;
+    background: #eee;
+}
+
+.mypage-head .avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+@media (max-width:850px) {
+    .mypage-head {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+
+    .mypage-head .btn-outline {
+        align-self: flex-end;
+    }
+}
+
+/* タブ（文字のみ・選択中は赤） */
+.tabs--mypage {
+    display: flex;
+    gap: 24px;
+    margin: 16px 0;
+}
+
+.tabs--mypage a {
+    text-decoration: none;
+    padding-bottom: 6px;
+    border-bottom: 2px solid transparent;
+    color: #111;
+}
+
+.tabs--mypage a.is-active {
+    color: #f42944;
+    border-bottom-color: #f42944;
+}
+
+
+.tab-panel .product-grid .product-thumb .badge-sold {
+    display: none !important;
+}
