@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -33,7 +35,7 @@ class Product extends Model
     {
         return $this->belongsTo(User::class, 'user_id');
     }
-    
+
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id');
@@ -59,6 +61,37 @@ class Product extends Model
         return $this->likes()->whereKey($user->id)->exists();
     }
 
+
+public function getImageUrlAttribute(): string
+{
+    $p = $this->image_path;
+
+    if (!$p) return asset('images/noimage.svg');
+
+
+    if (Str::startsWith($p, ['http://','https://','//'])) {
+        return $p;
+    }
+
+    
+    if (Str::startsWith($p, ['images/', '/images/', 'public/images/'])) {
+        
+        $p = ltrim(preg_replace('#^public/#', '', $p), '/');
+        return asset($p); 
+    }
+
+    
+    return Storage::disk('public')->url($p); 
+}
+
+
+public function scopeExceptMine($query, ?int $userId)
+{
+    if ($userId) {
+        $query->where('user_id', '!=', $userId);
+    }
+    return $query;
+}
 
 }
 

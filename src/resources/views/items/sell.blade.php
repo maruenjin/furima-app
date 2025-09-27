@@ -39,17 +39,21 @@
       @error('categories')<div style="color:#e53935;font-size:12px;">{{ $message }}</div>@enderror
     </div>
 
-    {{-- 商品の状態 --}}
-    <div>
-      <label>商品の状態</label>
-      <select name="condition" style="width:100%;padding:8px;border:1px solid #ccc;border-radius:6px;">
-        <option value="">選択してください</option>
-        @foreach (['新品未使用','未使用に近い','良好','やや傷や汚れあり','状態が悪い'] as $opt)
-          <option value="{{ $opt }}" {{ old('condition')===$opt?'selected':'' }}>{{ $opt }}</option>
-        @endforeach
-      </select>
-      @error('condition')<div style="color:#e53935;font-size:12px;">{{ $message }}</div>@enderror
-    </div>
+   {{-- 商品の状態 --}}
+<div>
+  <label>商品の状態</label>
+  @php
+    $opts = ['新品未使用','未使用に近い','目立った傷や汚れなし','やや傷や汚れあり','傷や汚れあり','全体的に状態が悪い'];
+  @endphp
+  <select name="condition" required style="width:100%;padding:8px;border:1px solid #ccc;border-radius:6px;">
+    <option value="" disabled {{ old('condition')==='' ? 'selected' : '' }}>選択してください</option>
+    @foreach ($opts as $opt)
+      <option value="{{ $opt }}" {{ old('condition') === $opt ? 'selected' : '' }}>{{ $opt }}</option>
+    @endforeach
+  </select>
+  @error('condition')<div style="color:#e53935;font-size:12px;">{{ $message }}</div>@enderror
+</div>
+
 
     {{-- 商品名 --}}
     <div>

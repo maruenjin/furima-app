@@ -1,0 +1,135 @@
+
+nav[role="navigation"] .pagination svg,
+nav[aria-label="Pagination"] .pagination svg,
+nav[role="navigation"] svg,
+nav[aria-label="Pagination"] svg {
+  width: 1.25rem !important;   
+  height: 1.25rem !important;  
+  flex: none;
+}
+
+
+nav[role="navigation"] {
+  display: grid;
+  gap: 10px;
+  justify-content: center;
+  margin-top: 18px;
+}
+
+
+nav[role="navigation"]>p {
+  display: none;
+}
+
+
+nav[role="navigation"] .pagination {
+  display: inline-flex;
+  gap: 6px;
+  align-items: center;
+  list-style: none;
+  padding: 0;
+}
+
+nav[role="navigation"] .pagination a,
+nav[role="navigation"] .pagination span {
+  display: inline-flex;
+  min-width: 36px;
+  height: 36px;
+  padding: 0 10px;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  border: 1px solid #ddd;
+  border-radius: 18px;
+  font-weight: 600;
+  color: #333;
+  background: #fff;
+}
+
+
+nav[role="navigation"] .pagination span[aria-current="page"] {
+  background: #111;
+  color: #fff;
+  border-color: #111;
+}
+
+
+nav[role="navigation"] .pagination span[aria-disabled="true"] {
+  color: #aaa;
+  border-color: #eee;
+  background: #fafafa;
+}
+
+
+nav[role="navigation"] .pagination a:hover {
+  border-color: #999;
+}
+
+
+nav[role="navigation"] .pagination svg {
+  width: 1rem !important;
+  height: 1rem !important;
+}
+
+
+nav[role="navigation"] {
+  display: grid;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+
+nav[role="navigation"] p {
+  display: none !important;
+}
+
+
+nav[role="navigation"] .z-0.inline-flex {
+  display: inline-flex;
+  gap: 6px;
+  align-items: center;
+}
+
+
+nav[role="navigation"] .z-0.inline-flex>a,
+nav[role="navigation"] .z-0.inline-flex>span {
+  display: inline-flex !important;
+  min-width: 36px;
+  height: 36px;
+  padding: 0 10px !important;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none !important;
+  border: 1px solid #ddd !important;
+  border-radius: 18px !important;
+  font-weight: 600 !important;
+  color: #333 !important;
+  background: #fff !important;
+}
+
+
+nav[role="navigation"] .z-0.inline-flex>span[aria-current="page"] {
+  background: #111 !important;
+  color: #fff !important;
+  border-color: #111 !important;
+}
+
+
+nav[role="navigation"] .z-0.inline-flex>span[aria-disabled="true"] {
+  color: #aaa !important;
+  border-color: #eee !important;
+  background: #fafafa !important;
+}
+
+
+nav[role="navigation"] .z-0.inline-flex>a:hover {
+  border-color: #999 !important;
+}
+
+
+nav[role="navigation"] svg {
+  width: 1rem !important;
+  height: 1rem !important;
+  flex: none;
+}

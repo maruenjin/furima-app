@@ -28,7 +28,7 @@ class ProfileUpdateRequest extends FormRequest
         'postal_code'  => ['required','regex:/^\d{3}-?\d{4}$/'], 
         'address'   => ['required','string','max:255'],
         'building'  => ['nullable','string','max:255'],
-        'avatar'    => ['nullable','image','mimes:jpeg,jpg,png','max:2048'],
+        'avatar'    => ['nullable','image','mimes:jpeg,jpg,png','max:4096'],
     ];
 }
 
@@ -42,7 +42,7 @@ public function messages(): array
         'address.required' => '住所を入力してください',
         'avatar.image'     => 'プロフィール画像は画像ファイルを選択してください',
         'avatar.mimes'     => 'プロフィール画像はjpeg、jpg、png形式でアップロードしてください',
-        'avatar.max'       => 'プロフィール画像は2MB以下でアップロードしてください',
+        'avatar.max'       => 'プロフィール画像は4MB以下でアップロードしてください',
     ];
 }
 

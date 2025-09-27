@@ -21,19 +21,20 @@ class StoreProductRequest extends FormRequest
      *
      * @return array
      */
-    public function rules()
-    {
-        return [
-            'name'        => ['required','string','max:100'],
-            'brand'       => ['nullable','string','max:255'],
-            'price'       => ['required','integer','min:0',],
-            'description' => ['required','string','max:255'],
-            'condition'   => ['required','in:新品未使用,未使用に近い,目立った傷や汚れなし,やや傷や汚れあり,傷や汚れあり,全体的に状態が悪い'],
-            'image'       => ['required','image','mimes:jpeg,png,jpg','max:4096'],
-             'categories'  => ['required','array','min:1'],
-             'categories.*'=> ['string','max:50'],
-        ];
-    }
+public function rules(): array
+{
+    return [
+        'name'        => ['required', 'string', 'max:100'],
+        'brand'       => ['nullable', 'string', 'max:100'],
+        'price'       => ['required', 'integer', 'min:1'],
+        'description' => ['nullable', 'string', 'max:255'],
+        'condition'   => ['nullable', 'string', 'in:新品未使用,未使用に近い,目立った傷や汚れなし,やや傷や汚れあり,傷や汚れあり,全体的に状態が悪い'],
+        'image'       => ['nullable', 'image', 'mimes:jpeg,png,jpg', 'max:4096'],
+        'categories'  => ['nullable', 'array', 'min:1'],   
+        'categories.*'=> ['string', 'max:50'],
+    ];
+}
+
 
   public function messages(): array
     {

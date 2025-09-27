@@ -7,6 +7,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductCommentController;
 use App\Http\Controllers\MyPageController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Middleware\EnsureProfileCompleted;
 
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisteredUserController;
@@ -60,7 +61,7 @@ Route::get('/after-login', function () {
 
 Route::middleware(['auth','verified'])->group(function () {
     Route::get('/mypage/profile',  [ProfileController::class,'edit'])->name('profile.edit');
-    Route::post('/mypage/profile', [ProfileController::class,'update'])->name('profile.update');
+     Route::match(['put','post'], '/mypage/profile', [ProfileController::class,'update'])->name('profile.update');
 });
 
 

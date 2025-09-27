@@ -117,7 +117,7 @@ body {
     display: block;
 }
 
-/* 白い箱ボタン（出品用） */
+
 .btn-white {
     display: inline-block;
     padding: 6px 12px;
@@ -133,7 +133,7 @@ body {
     opacity: 0.9;
 }
 
-/* まず全リンクをリセット（白い箱を外す） */
+
 .site-header .nav-links a {
     background: transparent;
     border: none;
@@ -142,7 +142,7 @@ body {
     text-decoration: none;
 }
 
-/* 出品だけ白い箱 */
+
 .site-header .nav-links a.btn-white {
     display: inline-block;
     padding: 6px 12px;
@@ -153,7 +153,7 @@ body {
     font-weight: 600;
 }
 
-/* ログアウトは文字リンク風（ボタンのデフォルトを消す） */
+
 .site-header .logout-inline button {
     background: transparent;
     border: none;
@@ -405,7 +405,7 @@ main {
 
 /* ---- レイアウトの土台 ---- */
 :root {
-    /* 画面幅が変わっても器は綺麗に縮む */
+    
     --container: clamp(960px, 92vw, 1160px);
     --container-wide: clamp(1040px, 94vw, 1280px);
 }
@@ -497,3 +497,13 @@ img {
 }
 
 
+nav[role="navigation"] .pagination svg,
+nav[aria-label="Pagination"] .pagination svg,
+nav[role="navigation"] svg,
+nav[aria-label="Pagination"] svg {
+    width: 1.25rem !important;
+    
+    height: 1.25rem !important;
+   
+    flex: none;
+}

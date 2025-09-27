@@ -19,7 +19,7 @@
 
       {{-- 商品ミニカード --}}
       <div class="purchase-item">
-        <img src="{{ $img }}" alt="" class="purchase-item__thumb">
+        <img src="{{ $product->image_url }}" alt="" class="purchase-item__thumb">
         <div class="purchase-item__meta">
           <div class="purchase-item__name">{{ $product->name }}</div>
           <div class="purchase-item__price">¥{{ number_format($product->price) }}</div>

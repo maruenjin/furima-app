@@ -11,7 +11,7 @@ class MyListTest extends TestCase
 {
     use RefreshDatabase;
 
-    /** ログイン時：いいねした商品だけが表示される */
+   
     public function test_ログイン時_いいねした商品だけが表示される(): void
     {
         $user = User::factory()->create([
@@ -19,12 +19,12 @@ class MyListTest extends TestCase
             'profile_completed' => true,
         ]);
 
-        // 他人の出品を2つ作成
+        
         $seller = User::factory()->create();
         $liked   = Product::factory()->for($seller, 'user')->create(['name' => 'いいねした商品']);
         $unliked = Product::factory()->for($seller, 'user')->create(['name' => 'いいねしてない商品']);
 
-        // いいね
+        
         $liked->likes()->attach($user->id);
 
         $res = $this->actingAs($user)
@@ -35,7 +35,7 @@ class MyListTest extends TestCase
             ->assertDontSee('いいねしてない商品', false);
     }
 
-    /** ログイン時：購入済み商品は Sold バッジが出る */
+   
     public function test_ログイン時_購入済み商品はSold表示(): void
     {
         $user   = User::factory()->create([
@@ -44,7 +44,7 @@ class MyListTest extends TestCase
         ]);
         $seller = User::factory()->create();
 
-        // 購入済み（buyer_id あり）かつ いいね済み
+        
         $sold = Product::factory()->for($seller, 'user')->create([
             'name'     => '購入済み商品',
             'buyer_id' => $user->id,
@@ -59,7 +59,7 @@ class MyListTest extends TestCase
             ->assertSee('Sold', false); 
     }
 
-    /** 未認証 */
+    
     public function test_未認証は何も表示されない(): void
     {
        

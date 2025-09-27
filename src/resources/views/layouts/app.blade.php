@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>@yield('title','フリマ')</title>
   <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+  
   @stack('styles') 
 </head>
 <body>
@@ -13,9 +14,13 @@
       <a href="{{ url('/') }}" class="brand">
         <img src="{{ asset('images/logo.svg') }}" alt="COACHTECH" class="brand-logo">
       </a>
-      <form action="{{ url('/') }}" method="GET" class="search-form" role="search">
-        <input type="text" name="q" placeholder="なにをお探しですか？" value="{{ request('q') }}">
-      </form>
+      <form method="GET" action="{{ route('products.index') }}" class="search-form" role="search">
+  
+      <input type="hidden" name="tab" value="{{ request('tab', 'recommended') }}">
+      <input type="text" name="q" placeholder="なにをお探しですか？" value="{{ request('q') }}">
+  
+</form>
+
       <nav class="nav-links">
         @auth
           <form class="logout-inline" method="POST" action="{{ route('logout') }}">@csrf<button type="submit">ログアウト</button></form>

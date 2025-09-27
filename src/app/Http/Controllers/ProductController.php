@@ -13,40 +13,25 @@ class ProductController extends Controller
 {
     public function index(Request $request)
 {
-    $q   = trim((string) $request->q);
-    $tab = $request->tab === 'mylist' ? 'mylist' : 'all';
+    $q   = trim((string)$request->input('q'));
+    $tab = $request->input('tab', 'recommended');
+    $uid = auth()->id();
 
-    
-    $builder = Product::query()->with('user')->latest();
-
-    
-    if ($q !== '') {
-        $builder->where('name', 'like', "%{$q}%");
-    }
+    $builder = Product::query()->with('user')->latest()
+        ->when($q !== '', fn ($qq) => $qq->where('name', 'like', "%{$q}%"));
 
     if ($tab === 'mylist') {
-        
-        if (!auth()->check()) {
-            $products = Product::query()
-                ->whereRaw('1=0') 
-                ->paginate(12)
-                ->withQueryString();
-
-            return view('items.index', compact('products', 'tab', 'q'));
-        }
-
-        
-        $builder->whereHas('likes', fn ($qr) => $qr->whereKey(auth()->id()));
+        $uid
+            ? $builder->whereHas('likes', fn($qr) => $qr->whereKey($uid))
+            : $builder->whereRaw('0=1'); 
     } else {
-       
-        if (auth()->check()) {
-            $builder->where('user_id', '!=', auth()->id());
-        }
+        if ($uid) $builder->where('user_id', '!=', $uid); 
     }
 
     $products = $builder->paginate(12)->withQueryString();
     return view('items.index', compact('products','tab','q'));
 }
+
 
 
     public function show(\App\Models\Product $product)

@@ -36,25 +36,21 @@
 .auth-form .input {
     width: 100%;
     height: 36px;
-    /* ← 細く */
     box-sizing: border-box;
     padding: 8px 12px;
-    /* ← 高さを下げた分だけ控えめに */
     border: 1px solid #000;
-    /* 黒いふちどり */
     border-radius: 0;
-    /* 角丸なし */
     background: #fff;
     appearance: none;
     box-shadow: none;
     font-size: 16px;
-    /* iOS拡大防止 */
+    
 }
 
 .auth-form .input:focus {
     outline: none;
     border-color: #000;
-    /* フォーカス時も黒のまま */
+    
     box-shadow: none;
 }
 
@@ -63,7 +59,7 @@
     
 }
 
-/* （汎用 .input は残すなら高さ指定を消す or 丸ごと削除） */
+
 .input {
     width: 100%;
     box-sizing: border-box;
@@ -102,7 +98,7 @@
     
 }
 
-/* リンク（下線なし） */
+
 .auth-switch {
     margin-top: 16px;
     text-align: center;
@@ -122,7 +118,7 @@
 
 .auth-switch .link:visited {
     color: #4e29f4;
-    /* 既読で紫にならないよう */
+    
 }
 
 .link {
@@ -151,7 +147,7 @@
     margin-bottom: 12px;
 }
 
-/* Chrome/Edge オートフィル色を白で上書き */
+
 input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus {
@@ -169,7 +165,7 @@ input:-webkit-autofill:focus {
     
 }
 
-/* 確認用パスワード → 登録ボタンの間を広げる */
+
 .auth-form .form-group:last-of-type {
     margin-bottom: 0;
     padding-bottom: 32px;
@@ -181,7 +177,7 @@ input:-webkit-autofill:focus {
     display: block;
 }
 
-/* タイトルを共通クラスで中央寄せ（登録/ログイン兼用） */
+
 .auth-title {
     font-size: 24px;
     font-weight: 700;
@@ -189,7 +185,7 @@ input:-webkit-autofill:focus {
     margin: 0 0 24px;
 }
 
-/* 入力は登録と同じ */
+
 .auth-form .input {
     width: 100%;
     height: 36px;
@@ -209,7 +205,7 @@ input:-webkit-autofill:focus {
     border-color: #000;
 }
 
-/* パスワード行→ボタンの間隔をしっかり空ける */
+
 .auth-form .form-group:last-of-type {
     margin-bottom: 0;
     padding-bottom: 28px;
@@ -220,7 +216,7 @@ input:-webkit-autofill:focus {
     display: block;
 }
 
-/* ログインリンクの色 */
+
 .auth-switch .link {
     color: #f42944;
     text-decoration: none;
@@ -230,7 +226,7 @@ input:-webkit-autofill:focus {
     opacity: .85;
 }
 
-/*  verify: メール認証誘導画面 */
+
 .verify-wrap {
     max-width: 520px;
     margin: 72px auto 0;
@@ -243,7 +239,7 @@ input:-webkit-autofill:focus {
     color: #111;
 }
 
-/* グレーのボタン（認証はこちらから） */
+
 .btn-secondary {
     display: inline-block;
     min-width: 240px;
@@ -260,7 +256,7 @@ input:-webkit-autofill:focus {
     opacity: .9;
 }
 
-/* 再送リンク */
+
 .verify-resend {
     margin-top: 16px;
 }
@@ -291,7 +287,7 @@ input:-webkit-autofill:focus {
     
 }
 
-/* メール認証の説明を太く */
+
 .verify-lead {
     font-weight: 800;
     
@@ -331,7 +327,7 @@ input:-webkit-autofill:focus {
     display: block;
 }
 
-/* 「画像を選択する」 pill ボタン（ */
+
 .avatar-upload {
     display: inline-block;
     margin-left: 12px;
@@ -348,7 +344,7 @@ input:-webkit-autofill:focus {
     opacity: .9;
 }
 
-/* 入力の見た目は登録 */
+
 .auth-form .input {
     height: 36px;
     padding: 8px 12px;

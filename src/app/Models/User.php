@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -46,4 +48,33 @@ class User extends Authenticatable implements MustVerifyEmail
         'profile_completed' => 'boolean',
         
     ];
+
+ public function getAvatarUrlAttribute(): string
+{
+   $p = $this->avatar_path;
+
+    if (empty($p)) {
+       
+        return asset('images/avatar-default.png');
+        
+    }
+
+    
+    if (Str::startsWith($p, ['http://', 'https://', '//'])) {
+        return $p;
+    }
+
+    
+    if (Str::startsWith($p, ['/storage/', 'storage/'])) {
+        return asset(ltrim($p, '/')); 
+    }
+
+    
+    if (Str::startsWith($p, ['/images/', 'images/'])) {
+        return asset(ltrim($p, '/')); 
+    }
+
+   
+    return Storage::disk('public')->url($p);
+}
 }

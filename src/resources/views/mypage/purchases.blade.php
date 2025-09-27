@@ -5,9 +5,7 @@
   {{-- プロフィールヘッダー --}}
   <div class="mypage-head">
   <div class="avatar {{ $user->avatar_path ? '' : 'is-empty' }}">
-    @if($user->avatar_path)
-      <img src="{{ asset('storage/'.$user->avatar_path) }}" alt="{{ $user->name }}">
-    @endif
+   <img src="{{ $user->avatar_url }}" alt="{{ $user->name }}">
   </div>
 
   <div class="mypage-head__name">{{ $user->name }}</div>
@@ -24,14 +22,16 @@
        class="{{ $tab==='buy' ? 'is-active' : '' }}">購入した商品</a>
   </div>
 
-  {{-- 出品した商品（タブ：sell） --}}
+  {{-- 出品した商品 --}}
   <div class="tab-panel {{ $tab==='sell' ? 'is-active' : '' }}">
     <div class="product-grid">
       @forelse ($myProducts as $p)
         <a class="product-card" href="{{ route('products.show', $p) }}">
           <div class="product-thumb">
-            @php $src = $p->image_path ? asset('storage/'.$p->image_path) : asset('images/noimage.png'); @endphp
-            <img src="{{ $src }}" alt="{{ $p->name }}">
+            
+            <img src="{{ $p->image_url }}" alt="{{ $p->name }}" loading="lazy">
+            
+
             
           </div>
           <div class="product-meta">
@@ -55,9 +55,11 @@
       @forelse ($items as $p)
         <a class="product-card" href="{{ route('products.show', $p) }}">
           <div class="product-thumb">
-            @php $src = $p->image_path ? asset('storage/'.$p->image_path) : asset('images/noimage.png'); @endphp
-            <img src="{{ $src }}" alt="{{ $p->name }}">
-            
+           
+            <img src="{{ $p->image_url }}" alt="{{ $p->name }}" loading="lazy">
+           
+
+
           </div>
           <div class="product-meta">
             <div class="brand">{{ $p->brand }}</div>

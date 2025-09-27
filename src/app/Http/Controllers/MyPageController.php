@@ -11,7 +11,7 @@ class MyPageController extends Controller
 {
     public function index(\Illuminate\Http\Request $request)
 {
-    // とりあえず「購入した商品一覧」へ飛ばす
+   
     return redirect()->route('mypage.purchases');
 }
 
@@ -19,15 +19,15 @@ class MyPageController extends Controller
     {
          $user = $request->user();
 
-          // どちらのタブを表示するか
+          
         $tab = $request->query('tab');
         $tab = in_array($tab, ['sell','buy'], true) ? $tab : 'sell';
 
-        // どちらのタブを表示するか
+       
     $tab = $request->query('tab');
     $tab = in_array($tab, ['sell','buy'], true) ? $tab : 'sell';
 
-    // --- 購入した商品 ---
+    
     $buyerColumn = \Schema::hasColumn('orders','buyer_id') ? 'buyer_id' : 'user_id';
     $orders = \App\Models\Order::with('product')
         ->where($buyerColumn, $user->id)
@@ -40,7 +40,6 @@ class MyPageController extends Controller
         ['path'=>$request->url(),'query'=>$request->query()]
     );
 
-    // --- 出品した商品 ---
     $myProducts = \App\Models\Product::where('user_id', $user->id)
         ->latest('id')
         ->paginate(12, ['*'], 'sells_page');

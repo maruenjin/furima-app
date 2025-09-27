@@ -7,10 +7,10 @@
 
 @section('content')
 @php
-  $img = $product->image_path ? asset('storage/'.$product->image_path) : asset('images/noimage.png');
+   
   $isMyItem = auth()->check() && auth()->id() === $product->user_id;
   $isSold   = $product->is_sold ?? false;
-
+@@
   $likesCount    = $likesCount ?? 0;
   $commentsCount = $commentsCount ?? 0;
   $isLikedByMe   = $isLikedByMe ?? (auth()->check() ? $product->isLikedBy(auth()->user()) : false);
@@ -25,7 +25,7 @@
 
     {{-- 左：画像だけ --}}
     <div class="product__image">
-      <img src="{{ $img }}" alt="{{ $product->name }}">
+       <img src="{{ $product->image_url }}" alt="{{ $product->name }}" loading="lazy">
       @if($isSold)
         <span class="badge-sold product__sold">SOLD</span>
       @endif
@@ -109,14 +109,16 @@
         @endforelse
 
         @if(auth()->check())
-          <form id="comment-form" method="POST" action="{{ url('/item/'.$product->id.'/comments') }}" class="comment-form">
-            @csrf
-            <textarea name="body" rows="4" maxlength="255" placeholder="ここにコメントを書いてください">{{ old('body') }}</textarea>
-            @error('body') <div class="form-error">{{ $message }}</div> @enderror
-            <div class="comment-form__actions">
-              <button type="submit" class="btn-primary-red">コメントを送信する</button>
-            </div>
-          </form>
+        <form id="comment-form" method="POST"
+         action="{{ route('products.comments.store', $product) }}"
+         class="comment-form">
+         @csrf
+         <textarea name="body" rows="4" placeholder="ここにコメントを書いてください">{{ old('body') }}</textarea>
+        @error('body') <div class="form-error">{{ $message }}</div> @enderror
+        <div class="comment-form__actions">
+         <button type="submit" class="btn-primary-red">コメントを送信する</button>
+        </div>
+      </form>
         @else
           <div class="comment-form__login">
             <a href="{{ route('login') }}" class="btn-primary-red">ログインしてコメント</a>
@@ -125,9 +127,9 @@
       </div>
 
       
-    </div> {{-- /.product__body --}}
-  </div> {{-- /.product__grid --}}
-</div> {{-- /.product --}}
+    </div>
+  </div>
+</div> 
 @endsection
 
 
