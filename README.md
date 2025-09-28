@@ -13,12 +13,30 @@ docker compose up -d --build
 1.docker compose exec php bash
 2.composer install
 3.cp .env.example .env
-4.envファイルの1部を以下のように編集
+4.envファイルを以下のように編集
+
+APP_NAME="Furima-app"
+APP_ENV=local
+APP_URL=http://localhost
+APP_DEBUG=true
 
 DB_HOST=mysql
 DB_DATABASE=laravel_DB
 DB_USERNAME=laravel_user
 DB_PASSWORD=laravel_pass
+
+# 画像配信は public ディスク
+FILESYSTEM_DISK=public
+
+# MailHog（メール認証/パスワードリセット）
+MAIL_MAILER=smtp
+MAIL_HOST=mailhog
+MAIL_PORT=1025
+MAIL_USERNAME=null
+MAIL_PASSWORD=null
+MAIL_ENCRYPTION=null
+MAIL_FROM_ADDRESS=noreply@example.com
+MAIL_FROM_NAME="${APP_NAME}"
 
 5.php artisan key:generate
 6.php artisan migrate --seed
@@ -26,10 +44,39 @@ DB_PASSWORD=laravel_pass
 
 ※サンプル商品画像を storage 側へ配置
 # コンテナ内で
-1.docker compose exec php bash -lc '
-2. mkdir -p storage/app/public/products &&
-  cp -n public/images/* storage/app/public/products/ 2>/dev/null || true
+docker compose exec php bash -lc '
+mkdir -p storage/app/public/products &&
+cp -n public/images/* storage/app/public/products/ 2>/dev/null || true
 '
+
+## 環境差異（MySQL のバージョン/アーキテクチャ）
+
+既定では mysql:8.0.26 を使用していますが、ARM(M1/M2 など) では起動できない/不安定な場合があります。
+その場合は以下のいずれかを選択してください。
+A. 8.0 の最新パッチ or LTS に切り替える
+docker-compose.yml の MySQL イメージを変更：
+
+services:
+  mysql:
+    # 安定版（自動で最新パッチを取得）
+    image: mysql:8.0
+    # もしくは LTS
+    # image: mysql:8.4
+その後に再作成：
+
+docker compose down -v
+docker compose pull
+docker compose up -d --build
+
+B. 8.0.26 を使う場合（Apple Silicon 向け）
+docker-compose.override.yml を作成して エミュレーションを指定：
+
+services:
+  mysql:
+    platform: linux/amd64
+
+ docker compose down -v
+docker compose up -d --build   
 
 ## ER図
 [ER図](docs/er/furima_er.png)
